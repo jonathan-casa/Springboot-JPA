@@ -78,7 +78,7 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
   List<Person> findAllBetweenId();
 
   @Query("select p from Person p where p.name between 'J'and 'P'")
-  List<String> findAllBetwwenName();
+  List<Person> findAllBetwwenName();
 
 
 }

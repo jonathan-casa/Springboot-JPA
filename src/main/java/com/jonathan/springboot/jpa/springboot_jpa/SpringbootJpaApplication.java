@@ -264,12 +264,12 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 	@Transactional
 	public void consultaBetween(){
 
-		System.out.println("====================uso de BETWEEN============================");
+		System.out.println("=========================================uso de BETWEEN============================");
 		List<Person> persons = repository.findAllBetweenId();
 		persons.forEach(System.out::println);
 
-		System.out.println("=====================Uso de BETWEEN CON CARACTERES=============");
-		List<String> names = repository.findAllBetwwenName();
+		System.out.println("======================================Uso de BETWEEN CON CARACTERES=============");
+		List<Person> names = repository.findAllBetwwenName();
 		names.forEach(System.out::println);
 	}
 }
