@@ -40,7 +40,9 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//consultaPersonalizada();
 		//fulldataPerson();
 		//consultaPersonalizada2();
-		consultaPersonalizadaDistinct();
+		//consultaPersonalizadaDistinct();
+		//consultaPersonalizadaConcat();
+		consultaBetween();
 	}
 
 
@@ -241,8 +243,33 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		Long totalLanguage = repository.findAllProgrammingLanguageDistinctCount();
 		System.out.println("Total de lenguajes registrados: "+ totalLanguage);
 
+	
+	}
+	@Transactional
+	public void consultaPersonalizadaConcat(){
+
+		System.out.println("===Lista de nombres y Apellidos ====================");
+		List<String> names = repository.findAllFullNameConcat();
+		names.forEach(System.out::println);
 		
+		System.out.println("==============Uso de UPPER=================");
+		List<String> uppers = repository.findAllFullNameUpper();
+		uppers.forEach(System.out::println);
 
+		System.out.println("==============Uso de LOWER==================");
+		List<String> lowers = repository.findAllNamesLower();
+		lowers.forEach(System.out::println);
+	}
 
+	@Transactional
+	public void consultaBetween(){
+
+		System.out.println("====================uso de BETWEEN============================");
+		List<Person> persons = repository.findAllBetweenId();
+		persons.forEach(System.out::println);
+
+		System.out.println("=====================Uso de BETWEEN CON CARACTERES=============");
+		List<String> names = repository.findAllBetwwenName();
+		names.forEach(System.out::println);
 	}
 }

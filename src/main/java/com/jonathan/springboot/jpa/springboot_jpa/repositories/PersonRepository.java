@@ -63,4 +63,22 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
     //Ejemplo de uso de COUNT (conteo)
     @Query("select COUNT(distinct(p.programmingLanguage)) from Person p")
 		Long findAllProgrammingLanguageDistinctCount();
+
+    @Query("select CONCAT(p.name, ' ', p.lastname) from Person p")
+    List<String> findAllFullNameConcat();
+  //ejemplos de LOWER Y UPPER
+
+  @Query("select UPPER(CONCAT(p.name, ' ', p.lastname)) from Person p")
+  List<String> findAllFullNameUpper();
+
+  @Query("select LOWER(CONCAT(p.name, ' ', p.lastname)) from Person p")
+  List<String> findAllNamesLower();
+
+  @Query("select p from Person p where p.id between 2 and 5")
+  List<Person> findAllBetweenId();
+
+  @Query("select p from Person p where p.name between 'J'and 'P'")
+  List<String> findAllBetwwenName();
+
+
 }
