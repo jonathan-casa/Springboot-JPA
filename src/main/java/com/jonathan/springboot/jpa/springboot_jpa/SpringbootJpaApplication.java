@@ -42,7 +42,9 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//consultaPersonalizada2();
 		//consultaPersonalizadaDistinct();
 		//consultaPersonalizadaConcat();
-		consultaBetween();
+		//consultaBetween();
+		//consultaBetween2();
+		consultaCountMaxMin();
 	}
 
 
@@ -269,7 +271,36 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		persons.forEach(System.out::println);
 
 		System.out.println("======================================Uso de BETWEEN CON CARACTERES=============");
-		List<Person> names = repository.findAllBetwwenName();
+		List<Person> names = repository.findAllBetweenName();
 		names.forEach(System.out::println);
+	}
+
+	@Transactional
+	public void consultaBetween2(){
+		System.out.println("========================Uso de BETWEEN con PARAMETROS ID=============");
+		List<Person> persons2 = repository.findAllBetweenId2(2L, 5L);
+		persons2.forEach(System.out::println);
+
+		System.out.println("=======================Uso de BETWEEN con PARAMETROS NAME============");
+		List<Person> names2 = repository.findAllBetwwenName2("C", "R");
+		names2.forEach(System.out::println);
+
+		System.out.println("========================TODOS LOS NOMBRES ORDENADOS==================");
+		List<Person> todos = repository.findAllByOrderByNameAscLastnameDesc();
+		todos.forEach(System.out::println);
+
+	}
+
+	@Transactional
+	public void consultaCountMaxMin(){
+		System.out.println("===========================USO DE COUNT, MIN Y MAX==================");
+		Long totalPer = repository.totalPersons();
+		Long min = repository.minId();
+		Long max = repository.maxId();
+
+		System.out.println("Total de personas: "+ totalPer);
+		System.out.println("Minimo id: "+ min);
+		System.out.println("Maximo id: "+ max);
+		
 	}
 }

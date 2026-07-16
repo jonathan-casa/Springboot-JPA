@@ -78,7 +78,31 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
   List<Person> findAllBetweenId();
 
   @Query("select p from Person p where p.name between 'J'and 'P'")
-  List<Person> findAllBetwwenName();
+  List<Person> findAllBetweenName();
+
+
+//otro ejemplo de BETWEEN con PARAMETROS
+  @Query("select p from Person p where p.id between ?1 and ?2 order by p.id desc")
+  List<Person> findAllBetweenId2(Long id1, Long id2);
+
+  @Query("select p from Person p where p.name between ?1 and ?2 order by p.name, p.lastname asc")
+  List<Person> findAllBetwwenName2(String name1, String name2);
+
+  //==========EXIXTEN METODOS PREDETERMINADOS para NO USAR @QUERY======================
+  List<Person> findByIdBetweenOrderByIdDesc(Long id1, Long id2);
+  List<Person> findByNameBetweenOrderByNameAscLastnameDesc(String name1, String name2);
+  List<Person> findAllByOrderByNameAscLastnameDesc();
+
+  //===================================================================================
+ 
+  //          USO DE COUNT, MIN Y MAX
+  @Query("select count(p) from Person p")
+  Long totalPersons();
+  @Query("select min(p.id) from Person p")
+  Long minId();
+  @Query("select max(p.id) from Person p")
+  Long maxId();
+
 
 
 }
