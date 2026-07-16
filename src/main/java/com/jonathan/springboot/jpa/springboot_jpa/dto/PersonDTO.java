@@ -1,7 +1,7 @@
 package com.jonathan.springboot.jpa.springboot_jpa.dto;
 
 public class PersonDTO {
-
+//linea de ejemplo
     private String name;
     private String lastname;
     

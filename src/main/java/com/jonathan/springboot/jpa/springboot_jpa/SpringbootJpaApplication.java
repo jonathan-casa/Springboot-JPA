@@ -7,7 +7,6 @@ import java.util.Scanner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.Query;
 
 import com.jonathan.springboot.jpa.springboot_jpa.dto.PersonDTO;
 import com.jonathan.springboot.jpa.springboot_jpa.entities.Person;
@@ -43,6 +42,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//consultaPersonalizada2();
 		consultaPersonalizadaDistinct();
 	}
+
 
 	public void consulta1(){
 		//List<Person> persons = (List<Person>) repository.findAll();
