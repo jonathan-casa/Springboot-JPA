@@ -102,7 +102,31 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
   Long minId();
   @Query("select max(p.id) from Person p")
   Long maxId();
+  
+  //    USO DE LENGTH
+  @Query("select p.name, length(p.name) from Person p")
+  public List<Object[]> getPersonNameLength();
+
+  @Query("select MIN(length(p.name)) from Person p")
+  Integer getMinNameLength();
+  
+  @Query("select MAX(length(p.name)) from Person p")
+  Integer getMaxNameLength();
+  
+  //    EJEMPLO DE FUNCIONES DE REGREGACION
+  @Query("select min(p.id), max(p.id), sum(p.id), avg(length(p.name)), count(p.id) from Person p")
+  public Object getResumeAggregationFuncion();
 
 
+  //===============SUBCONSULTAS (SUBQUERY)=======================
 
+  @Query("select p.name, length(p.name) from Person p where length(p.name) =(select min(length(p.name)) from Person p)")
+  public List<Object[]> getShorterName();
+
+  @Query("select p from Person p where p.id = (select max(p.id) from Person p)")
+  public Optional<Person> lastRegistration();
+
+//=========================USO DE WHERE IN ==================================
+  @Query("select p from Person p where p.id IN ?1")
+  List<Person> getPersonsByIds(List<Long> ids);
 }

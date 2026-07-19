@@ -1,5 +1,6 @@
 package com.jonathan.springboot.jpa.springboot_jpa;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -12,6 +13,8 @@ import com.jonathan.springboot.jpa.springboot_jpa.dto.PersonDTO;
 import com.jonathan.springboot.jpa.springboot_jpa.entities.Person;
 import com.jonathan.springboot.jpa.springboot_jpa.repositories.PersonRepository;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+import ch.qos.logback.core.util.SystemInfo;
 import jakarta.transaction.Transactional;
 
 @SpringBootApplication
@@ -301,6 +304,48 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		System.out.println("Total de personas: "+ totalPer);
 		System.out.println("Minimo id: "+ min);
 		System.out.println("Maximo id: "+ max);
+
+		System.out.println("=========================USO DE LENGTH EN NOMBRES===============");
+		List<Object[]> regs = repository.getPersonNameLength();
+		regs.forEach(reg ->{
+			String name = (String) reg[0];
+			Integer length = (Integer) reg[1];
+			System.out.println("Nombre: " + name + "Tamaño: "+ length);
+		});
+
+		System.out.println("==================== NONMBRE mas CORTO (MIN) Y mas LARGO (MAX)==================");
+		Integer nimNameLegth = repository.getMinNameLength();
+		Integer maxNameLegth = repository.getMaxNameLength();
+		System.out.println("Nombre mas corto: "+ nimNameLegth+"  Nombre mas Largo: "+maxNameLegth);
+
+		System.out.println("========================min, max, sum, avg, count");
+		Object[] resumFuncion = (Object[]) repository.getResumeAggregationFuncion();
+		System.out.println(
+			"min: "+resumFuncion[0]+ 
+			" max: "+ resumFuncion[1]+
+			" sum: "+resumFuncion[2]+ 
+			" avg: " + resumFuncion[3]+ 
+			" count: "+resumFuncion[4]);
 		
+			//=====================================EJEMPLO DE SUBCONSULTA===================================
+		System.out.println("======================NOMBRE MAS CORTO ===========================");
+		List<Object[]> nameShorter = repository.getShorterName();
+		nameShorter.forEach(regs2 ->{
+			String name = (String) regs2[0];
+			Integer tam = (Integer) regs2[1];
+			System.out.println("nombre: "+name+" tamaño: "+tam);
+
+		});
+
+		System.out.println("======================ULTIMO NOMBRE REGISTRDO ===========================");
+		Optional<Person> lastName = repository.lastRegistration();
+		//lastName.ifPresent(person -> System.out.println(person));	
+		lastName.ifPresent(System.out::println);	
+
+		System.out.println("======================= USO DE WHERE IN ======================");
+		List<Person> personsByIds = repository.getPersonsByIds(Arrays.asList(1L, 2L, 5L));
+		personsByIds.forEach(System.out::println);
+
+
 	}
 }
