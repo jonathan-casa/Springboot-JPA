@@ -1,10 +1,14 @@
 package com.jonathan.springboot.jpa.springboot_jpa.entities;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity // indica que es una clase persistente
@@ -20,6 +24,12 @@ public class Person {
 
     @Column(name = "programming_language") //renombrar columna programmingLanguage
     private String programmingLanguage;
+
+    @Column(name = "create_at")
+    private LocalDateTime createAt;
+    
+    @Column(name = "update_at")
+    private LocalDateTime updatedAt;
     
     //Constructor vacio que  va a utilizar JPA para crear la instancia.
     public Person() {
@@ -70,9 +80,22 @@ public class Person {
     @Override  // Generar ToString con Accion de Fuente para imprimir los datos
     public String toString() { 
         return "[id=" + id + ", name=" + name + ", lastname=" + lastname + ", programmingLanguage="
-                + programmingLanguage + "]";
+                + programmingLanguage + ", createAt= " + createAt + ", updateAt= " + updatedAt + "]";
     }
 
+    //============================== CICLO DE VIDA DEL OBJETO ENTITY DE PERSISTENCIA===============
+
+    @PrePersist
+    public void prePersist(){
+        System.out.println("Evento del ciclo de vida del objeto de pre-persistencia");
+        this.createAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate(){
+        System.out.println("Evento del ciclo de vida del objeto de pre-update");
+        this.updatedAt = LocalDateTime.now();
+    }
     
 }
 

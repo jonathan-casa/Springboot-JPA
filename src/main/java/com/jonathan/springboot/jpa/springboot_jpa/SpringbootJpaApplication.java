@@ -13,8 +13,6 @@ import com.jonathan.springboot.jpa.springboot_jpa.dto.PersonDTO;
 import com.jonathan.springboot.jpa.springboot_jpa.entities.Person;
 import com.jonathan.springboot.jpa.springboot_jpa.repositories.PersonRepository;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import ch.qos.logback.core.util.SystemInfo;
 import jakarta.transaction.Transactional;
 
 @SpringBootApplication
@@ -37,8 +35,8 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 
 		//consulta1();
 		//consulta2finOne();
-		//create()
-		//update();
+		//create();
+		update();
 		//delete2();
 		//consultaPersonalizada();
 		//fulldataPerson();
@@ -47,7 +45,7 @@ public class SpringbootJpaApplication implements CommandLineRunner{
 		//consultaPersonalizadaConcat();
 		//consultaBetween();
 		//consultaBetween2();
-		consultaCountMaxMin();
+		//consultaCountMaxMin();
 	}
 
 
